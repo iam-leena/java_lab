@@ -8,27 +8,28 @@ public class ShapeDemo extends Applet {
     Panel panelUp,panelDown;
 
     public void paint(Graphics g) {
-        panelUp=new Panel();
-        panelDown=new Panel();
+      
+        String lblApp="Applet 101";
+        String lblRec="Rectangle";
+        String lblRecFill="Filled Rectangle";
+        String lblArc="Arc";
         
-        lblRec=new Label("Rectangle");
-        lblFillRec=new Label("Filled Rectangle");
-        lblArc=new Label("Arc");
+        g.drawLine(25,15,300,15);
+        g.fillOval(100,15,20,20);
+        g.drawString(lblApp, 130, 30);
+        g.fillOval(200,15,20,20);
+        g.drawLine(25,35,300,35);
+       
+        g.drawString(lblRec, 10, 60);
+        g.drawRect(100,40,100,50); 
         
-        g.drawLine(25,25,100,25);
-        g.drawLine(35,35,100,35);
-        panelDown.add(lblRec);
-        g.drawRect(25,40,100,50); 
-        panelDown.add(lblFillRec);
-        g.fillRect(145,40,100,50); 
-        panelDown.add(lblArc);
-        g.drawArc(25,345,100,50,25,75); 
-        
-        
-        panelDown.setLayout(new GridLayout(3,2));
-        panelUp.setLayout(new FlowLayout());
-        
-        add(panelUp);
-        add(panelDown);
+        g.drawString(lblRecFill, 10, 120);
+        g.fillRect(100,95,100,50); 
+       
+         g.drawString(lblArc, 10, 180);
+    //g.drawArc(int x, int y, int width, int height, int startAngle, int arcAngle):
+        g.drawArc(100,345,100,50,25,75);
+  
+ 
     }
 }
