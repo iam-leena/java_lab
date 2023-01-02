@@ -4,9 +4,7 @@ import java.applet.*;
 import java.awt.event.*;
 /*<applet code="ShapeDemo.class" width=200 height=200></applet> */
 public class ShapeDemo extends Applet {
-    Label lblRec,lblFillRec,lblArc;
-    Panel panelUp,panelDown;
-
+   
     public void paint(Graphics g) {
       
         String lblApp="Applet 101";
