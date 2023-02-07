@@ -1,11 +1,65 @@
 package JDBC;
 import java.sql.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 public class CountriesDemo {
      Connection con;
      Statement stmt;
     PreparedStatement pstmt;
     ResultSet rs;
+    void GuiDemo(){
+
+        JFrame frame = new JFrame();
+    
+        JLabel lblID = new JLabel("Country_ID");
+        JLabel lblName = new JLabel("Country_Name");
+        JLabel lblContinent = new JLabel("Continent");
+ 
+        JTextField txtID= new JTextField(10);
+        JTextField txtName = new JTextField(10);
+        JTextField txtContinent = new JTextField(10);
+        
+        JButton btnSubmit = new JButton("Submit");
+        
+        
+        JPanel panel = new JPanel();
+        panel.add(lblID);
+        panel.add(txtID);
+        panel.add(lblName);
+        panel.add(txtName);
+        panel.add(lblContinent);
+        panel.add(txtContinent);
+        panel.add(btnSubmit);
+       
+        
+        panel.setLayout(new GridLayout(6,2));
+        frame.add(panel);
+        frame.setSize(400,400);
+        frame.setLayout(new FlowLayout());
+        frame.setVisible(true);
+        
+        btnSubmit.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                int country_id;
+                String country_name;
+                String continent;
+                
+                country_id = Integer.parseInt(txtID.getText());
+                country_name = txtName.getText();
+                continent = txtContinent.getText();
+               
+                
+                try{
+                    
+                   insertTable(country_id,country_name,continent);
+                }catch(Exception e){
+                    e.printStackTrace();
+                } 
+            }
+        });
+     }
+
      CountriesDemo(){
          try {
             String sql="CREATE DATABASE Countries_test";
@@ -37,13 +91,13 @@ public class CountriesDemo {
              e.printStackTrace();
          }
     }
-     void insertTable() throws Exception{
+     void insertTable(int country_id,String country_name,String continent) throws Exception{
          try{
              String query="INSERT INTO COUNTRIES VALUES(?,?,?)";
              pstmt=con.prepareStatement(query);
-             pstmt.setInt(1, 100);
-             pstmt.setString(2, "Nepal");
-             pstmt.setString(3, "Asia");
+             pstmt.setInt(1, country_id);
+             pstmt.setString(2, country_name);
+             pstmt.setString(3, continent);
              int result=pstmt.executeUpdate();
              if(result!=-1){
                 JOptionPane.showMessageDialog(null,"Inserted Successfully");
@@ -52,6 +106,8 @@ public class CountriesDemo {
             }
          }catch(Exception e){
              e.printStackTrace();
+         }finally{
+             readFromDatabase();
          }
     }
      void readFromDatabase() throws Exception{
@@ -84,10 +140,10 @@ public class CountriesDemo {
     }
       public static void main(String[] args)throws Exception{
           CountriesDemo cd=new CountriesDemo();
+          cd.GuiDemo();
           cd.createtable();
-          cd.insertTable();
           cd.readFromDatabase();
-          cd.close();
+//          cd.close();
       
      }
 }
